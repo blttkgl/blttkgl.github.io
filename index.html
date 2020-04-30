@@ -1,0 +1,160 @@
+<!doctype html>
+<html>
+<style>
+/* style the accordion */
+.accordion {
+  background-color: #eee;
+  cursor: pointer;
+  padding: 0px;
+  width: 68px;
+  text-align: left;
+  outline: none;
+  font-size: 14px;
+  transition: 0.2s;
+  margin-left: 0px;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active, .accordion:hover {
+  background-color: #ccc;
+}
+
+.accordion:after {
+  content: '\002B';
+  color: #777;
+  font-weight: bold;
+  float: right;
+  margin-left: 0px;
+}
+
+.active:after {
+  content: "\2212";
+}
+
+/* Style the accordion panel. Note: hidden by default */
+.panel {
+  padding: 0 14px;
+  text-align:justify;
+  background-color: white;
+  max-height: 0;
+  overflow: hidden;
+  font-size: 14px;
+  transition: max-height 0.2s ease-out;
+}
+</style>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Emirhan İlhan</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width">
+
+
+  <!----------------------------------------------------------------------------------------->
+  <!--THIS IS THE LEFT COLUMN -->
+  <body>
+  
+  <!--THIS IS THE LEFT COLUMN -->
+    <div class="wrapper">
+      <header>	  
+	  
+	  <h1>Emirhan İlhan</h1>
+	  <img align="middle" src="emir_picture_cropped.jpg" width="300" height=auto />
+	  <p></p>
+
+	  <!-- Navigation Bar -->	  
+	  <!-- <nh> stands for "navigation header" -->	  
+	  <p>You can contact me at: <a href="e.ilhan@fs.de" target="_blank"><b>e.ilhan@fs.de</b></a></p>
+	  <p>You can download my CV <a href="emir_cv.pdf"  target="_blank"><b>here.</b></a></p>
+	  
+	  <nh><p class="view"><a href="https://scholar.google.de/citations?user=1odNvOgAAAAJ&hl=en"><b>Google Scholar</b></a></p></nh>
+	  <nh><p class="view"><a href="https://papers.ssrn.com/sol3/cf_dev/AbsByAuth.cfm?per_id=2741057"><b>SSRN</b></a></p></nh>
+
+	  
+	  
+	  </header>
+  
+	  
+	  <!----------------------------------------------------------------------------------------->
+	  <!--THIS IS THE RIGHT COLUMN -->
+	  
+      <section>
+	  
+
+		<p>I am a Ph.D. candidate in Finance at <b>Frankfurt School of Finance & Management</b>.</p>
+		<p>I am visiting McCombs School of Business at the University of Texas at Austin for the Spring Semester 2020.</p>
+		
+		<p>My research interests lie in financial economics of climate change and empirical corporate finance.</p>
+	  	
+
+		<p></p>
+		
+		<hr>
+		
+		<h2>Research</h2>
+	  	  <paper_title><p style="margin:0;"><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3204420" target="_blank"><b>Carbon Tail Risk</b></a></p></paper_title>
+	    <p style="font-size:14px; margin-bottom:10px;">(with Zacharias Sautner and Grigory Vilkov)</p>
+	    <p style="margin-bottom:10px;"><i>Review of Financial Studies, Conditionally Accepted</i></p>
+		<button class="accordion" style="margin-bottom:10px">Abstract</button>
+		<div class="panel">
+		  <p>Strong regulatory actions are needed to combat climate change, but uncertainty makes it difficult for investors to quantify the impact of future climate regulation. We show that climate policy uncertainty is priced in the option market. The cost of option protection against downside tail risks is larger for firms with more carbon-intense business models. For carbon-intense firms, the cost of protection against downside tail risk is magnified at times when the public’s attention to climate change spikes, and it decreased after the election of climate change skeptic President Trump. </p>
+		</div>
+	  
+	  
+		<p></p>
+	  
+	  
+	  <paper_title><p style="margin:0;"><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3437178" target="_blank"><b>Institutional Investors’ Views and Preferences on Climate Risk Disclosure</b></a></p></paper_title>
+	  <p style="font-size:14px; margin-bottom:10px;">(with Philipp Krüger, Zacharias Sautner, and Laura Starks)</p>
+		<button class="accordion" style="margin-bottom:10px">Abstract</button>
+		<div class="panel">
+		  <p>Surveying institutional investors on portfolio firms’ climate risk disclosures, we find that many think climate risk reporting to be as important as traditional financial reporting and that it should be mandatory and more standardized. We find systematic variation in their opinions depending on investor characteristics and their beliefs about climate change. For example, the belief that current disclosure is deficient derives more from investors that believe climate risks are underpriced in equity markets. We complement the survey analysis with archival data showing that greater institutional ownership is associated with a higher propensity of firms to voluntarily disclose their carbon emissions.  </p>
+		</div>
+		
+		<br>
+		
+		<hr>
+		
+		<h2>Teaching</h2>
+		<h3 style="margin-bottom:5px;">Frankfurt School of Finance & Management:</h3>
+		<p style="font-size:15px; color:#283747;"><b>Lecturer:</b> <br>
+		   2018/2019: Mathematics (BSc), Fall. Evaluation: 1.7 (1: Best, 6: Worst) <br>
+		   2017/2018: Mathematics (BSc), Fall. Evaluation: 1.9 (1: Best, 6: Worst)
+		</p>
+
+		<p style="font-size:16px; color:#283747;"><b>Teaching Assistant:</b> <br>
+			2019/2020: Risk Management   (MSc), Spring. <br>
+			2018/2019: Corporate Finance (MSc), Spring. <br>
+			2018/2019: Corporate Finance (BSc), Spring. <br>
+			2017/2018: Corporate Finance (MSc), Spring. <br>
+		</p>
+
+      </section>
+
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+
+  </body>
+  
+  <!-- Java script for abstract button -->
+<script>
+var acc = document.getElementsByClassName("accordion");
+var i;
+
+for (i = 0; i < acc.length; i++) {
+  acc[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var panel = this.nextElementSibling;
+    if (panel.style.maxHeight) {
+      panel.style.maxHeight = null;
+    } else {
+      panel.style.maxHeight = panel.scrollHeight + "px";
+    } 
+  });
+}
+</script>
+
+</html>
