@@ -326,4 +326,50 @@ footer {
     color:#444;
   }
 
+
+
+
+/* style the accordion */
+.accordion {
+  background-color: #eee;
+  cursor: pointer;
+  padding: 0px;
+  width: 68px;
+  text-align: left;
+  outline: none;
+  font-size: 14px;
+  transition: 0.2s;
+  margin-left: 0px;
 }
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active, .accordion:hover {
+  background-color: #ccc;
+}
+
+.accordion:after {
+  content: '\002B';
+  color: #777;
+  font-weight: bold;
+  float: right;
+  margin-left: 0px;
+}
+
+.active:after {
+  content: "\2212";
+}
+
+/* Style the accordion panel. Note: hidden by default */
+.panel {
+  padding: 0 14px;
+  text-align:justify;
+  background-color: white;
+  max-height: 0;
+  overflow: hidden;
+  font-size: 14px;
+  transition: max-height 0.2s ease-out;
+}
+  
+
+
+.
