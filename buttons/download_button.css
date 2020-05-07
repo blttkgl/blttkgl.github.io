@@ -1,0 +1,46 @@
+.btn {
+  background-color: white;
+  color: black;
+  font-size: 16px;
+  font-weight: bold;
+  font-family: Lato, Trebuchet MS, helvetica;
+  text-decoration: none;
+
+  transition-duration: .2s;
+  -webkit-transition-duration: .2s;
+  -moz-transition-duration: .2s;
+  padding: 2px 3px;
+  cursor: pointer;
+  
+  /* button look when inactive */
+  /* border-bottom:  4px solid;
+  border-top: 2px solid;
+  border-left:  3px solid;
+  border-right:  2px solid;
+  border-radius: 0;
+  border-color: black;
+  box-shadow: 1px 1px #888888;*/
+  
+  border-bottom:  3px solid;
+  border-top: 1px solid;
+  border-left:  2px solid;
+  border-right:  1px solid;
+  border-radius: 0;
+  border-color: black;
+  box-shadow: 1.25px 1.25px #888888;
+}
+
+/* Darker background on mouse-over */
+.btn:hover {
+
+  
+  /* update text color and background color */
+  background-color: black;
+  color:white;
+  
+   /* transitions */
+  transition-duration: .2s;
+  -webkit-transition-duration: .11s;
+  -moz-transition-duration: .2s;
+  
+}
