@@ -40,9 +40,9 @@
   border-right:  1px solid;
   border-radius: 0;
   border-color: black;
-  box-shadow: 1.25px 1.25px #888888;
-}
+  box-shadow: 1.5px 1.5px #888888;
 
+}
 /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
 .accordion:hover {
 
@@ -59,8 +59,27 @@
 }
 
 .accordion:active {
-
+  /* update text color and background color */
+  background-color: black;
+  color:white;
   
+   /* transitions */
+  transition-duration: .2s;
+  -webkit-transition-duration: .11s;
+  -moz-transition-duration: .2s;
+  
+  
+  /* button-like feel */
+  border-bottom: 1px solid;
+  border-left:  1px solid;
+  border-right:  1px solid;
+  border-color: black;
+  text-align: center;
+  padding: 4px;
+  margin-top: 3px; 
+}
+
+button.down {
   /* update text color and background color */
   background-color: black;
   color:white;
@@ -81,3 +100,19 @@
   margin-top: 3px;
   
 }
+/*
+button.down {
+  background-color: black;
+  color: white;
+  font-size: 16px;
+	
+  border-bottom:  3px solid;
+  border-top: 1px solid;
+  border-left:  2px solid;
+  border-right:  1px solid;
+  border-radius: 0;
+  border-color: black;
+  box-shadow: 1.5px 1.5px #888888;
+}
+*/
+
