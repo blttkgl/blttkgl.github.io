@@ -6,9 +6,10 @@
 body {
   background-color: #FEFCFF;
   padding:50px;
-  font: 16px    Lato, Trebuchet MS, sans-serif;
+  font: 16px    Lato, Trebuchet MS, Helvetica, sans-serif;
   color: black;
   font-weight:400;
+  -webkit-font-smoothing: antialiased;
 }
 
 h1, h3, h4, h5, h6 {
@@ -34,7 +35,6 @@ paper_title {
 nh {
   color:#222;
   margin:0 0 0 0 px;
-
   font-size: 16px;
 }
 
