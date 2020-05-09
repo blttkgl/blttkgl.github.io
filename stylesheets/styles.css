@@ -12,13 +12,15 @@ body {
 }
 
 h1, h3, h4, h5, h6 {
-  color:#283747;
+  /*color:#283747;*/
   /*color:#222;*/
+  color:black;
   margin:0 0 20px;
 }
 
 h2 {
-	color: #283747;
+	/*color: #283747;*/
+	color:black;
 	margin: 0 0 10px;	
 }
 
@@ -52,7 +54,7 @@ z alert {
 
 p alert {
   font-size:14px;
-  color:#777;
+  /*color:#777;*/
   display:inline;
 }
 
@@ -70,10 +72,7 @@ h2 {
 }
 */
 
-h3, h4, h5, h6 {
-  /*color:#494949;*/
-  color:#283747;
-}
+
 a { 
     color: #39c;
 }
