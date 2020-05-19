@@ -1,9 +1,15 @@
 <!doctype html>
 <html>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Lato:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+
+</style> 
+
 
   <head>
 
-  
+
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
     <meta charset="utf-8">
     <title>Emirhan İlhan | Ph.D. Candidate</title>
@@ -74,14 +80,16 @@
 		
 		<h2>Research</h2>
 	  	<paper_title><p style="margin:0;"><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3204420" title="Carbon Tail Risk" target="_blank"><b>Carbon Tail Risk</b></a></p></paper_title>		  
-		<!-- Download button here, for later use maybe
-		<a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3204420" target="_blank" download>
-		<button class="btn" style="margin-bottom:10px"><i class="fa fa-download"></i></button></a>
-		-->
+
 	    <p style="font-size:14px; margin-bottom:10px;">(with Zacharias Sautner and Grigory Vilkov)</p>
 	    <p style="margin-bottom:10px;">Accepted for publication in the <i>Review of Financial Studies</i></p>
 		
-		<button id="button" class="accordion" style="margin-bottom:10px">Abstract</button>		
+		<!-- Data Download Button -->
+		<a href="data/IlhanSautnerVilkovRFS2020_data.xlsx" target="_blank">
+		<button class="accordion" style="margin-bottom:10px">Data <i class="fa fa-download"></i></button></a>
+		
+		<!-- Abstract Button -->	
+		<button id="button" class="accordion" style="margin-bottom:10px">Abstract</button>	
 		<div class="panel">
 		  <p>Strong regulatory actions are needed to combat climate change, but uncertainty makes it difficult for investors to quantify the impact of future climate regulation. We show that climate policy uncertainty is priced in the option market. The cost of option protection against downside tail risks is larger for firms with more carbon-intense business models. For carbon-intense firms, the cost of protection against downside tail risk is magnified at times when the public’s attention to climate change spikes, and it decreased after the election of climate change skeptic President Trump. </p>
 		</div>
@@ -89,8 +97,11 @@
 		<p></p>
 	  
 	  
-	  <paper_title><p style="margin:0;"><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3437178" title="Institutional Investors’ Views  and Preferences on Climate Risk Disclosure" target="_blank"><b>Institutional Investors’ Views and Preferences on Climate Risk Disclosure</b></a></p></paper_title>
-	  <p style="font-size:14px; margin-bottom:10px;">(with Philipp Krüger, Zacharias Sautner, and Laura Starks)</p>
+	  <paper_title><p style="margin:0;"><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3437178" title="Institutional Investors’ Views and Preferences on Climate Risk Disclosure" target="_blank"><b>Institutional Investors’ Views and Preferences on Climate Risk Disclosure</b></a></p></paper_title>
+	  <p style="font-size:14px; margin-bottom:10px;">(with Philipp Krueger, Zacharias Sautner, and Laura Starks)</p>
+		
+		
+		<!-- Abstract Button -->
 		<button id="button" class="accordion" style="margin-bottom:10px">Abstract</button>
 		<div class="panel">
 		  <p>Surveying institutional investors on portfolio firms’ climate risk disclosures, we find that many think climate risk reporting to be as important as traditional financial reporting and that it should be mandatory and more standardized. We find systematic variation in their opinions depending on investor characteristics and their beliefs about climate change. For example, the belief that current disclosure is deficient derives more from investors that believe climate risks are underpriced in equity markets. We complement the survey analysis with archival data showing that greater institutional ownership is associated with a higher propensity of firms to voluntarily disclose their carbon emissions.  </p>
@@ -143,17 +154,6 @@ for (i = 0; i < acc.length; i++) {
   });
 }
 
-</script>
-
-<script>
-function myFunction() {
-  var x = document.getElementById("myDIV");
-  if (x.style.display === "none") {
-    x.style.display = "block";
-  } else {
-    x.style.display = "none";
-  }
-}
 </script>
 
 <script>
