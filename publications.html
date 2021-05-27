@@ -89,7 +89,7 @@
 	  
 		<br><br>
 		<h2>Publications</h2>
-
+		<hr>
 		<paper_title><p style="font-size:15px;margin:0;"><a href="https://aaltodoc.aalto.fi/handle/123456789/107145" title="Numerical studies for diesel spray assisted methane ignition at low temperature conditions" target="_blank"><b>Numerical studies for diesel spray assisted methane ignition at low temperature conditions</b></a></p></paper_title>
 	    <p style="font-size:14px; margin-bottom:10px;">(<b>B. Tekgül</b>)</p>
 	    <p style="font-size:14px;margin-bottom:5px;"><b>Doctoral Dissertation</b></p>
@@ -243,7 +243,24 @@
 		
 		<hr>
 		
-		<h2>Submitted Papers</h2>
+		<h2>Under Review Publications</h2>
+		<!-- DLBFoam -->
+		<paper_title><p style="font-size:15px;margin:0;"><a href="https://arxiv.org/abs/2105.12070" title="Fast reactive flow simulations using analytical Jacobian and dynamic load balancing in OpenFOAM" target="_blank"><b>Fast reactive flow simulations using analytical Jacobian and dynamic load balancing in OpenFOAM</b></a></p></paper_title>		  
+	    <p style="font-size:14px; margin-bottom:10px;">(I. Morev, <b>B. Tekgül</b>, M. Gadalla, A. Shahanaghi, J. Kannan, S. Karimkashi, O. Kaario, V. Vuorinen)</p>
+		<p style="font-size:14px;margin-bottom:5px;"><b>Submitted to Computers and Fluids (Preprint available in arXiv)</b></p>
+		<!-- Data Download Button -->
+		<a href="https://github.com/Aalto-CFD/DLBFoam" target="_blank">
+		<button class="accordion" style="font-size:10px;margin-bottom:10px">Source code <i class="fa fa-download"></i></button></a>
+		<!-- Abstract Button -->	
+		<button id="button" class="accordion" style="font-size:10px;margin-bottom:10px">View Abstract</button>	
+		<div class="panel">
+		  <p>Detailed chemistry-based computational fluid dynamics (CFD) simulations are computationally expensive due to the solution of the underlying chemical kinetics system of ordinary differential equations (ODEs). Here, we introduce a novel open-source library aiming at speeding up such reactive flow simulations using OpenFOAM, an open-source C++ software for CFD. First, our dynamic load balancing model DLBFoam (Tekgül et al., 2021) is utilized to mitigate the computational imbalance due to chemistry solution in multiprocessor reactive flow simulations. Then, the individual (cell-based) chemistry solutions are optimized by implementing an analytical Jacobian formulation using the open-source library pyJac, and by increasing the efficiency of the ODE solvers by utilizing the linear algebra package LAPACK. We demonstrate the speed-up capabilities of this new library on various combustion problems. These test problems include a 2D turbulent reacting shear layer and 3D stratified combustion to highlight the favorable scaling aspects of the library on ignition/flame front initiation setups for dual-fuel combustion. Furthermore, two fundamental 3D demonstrations are provided on non-premixed and partially premixed flames, namely the ECN Spray A and the Sandia flame D experimental configurations. The novel model offers up to two orders of magnitude speed-up for most of the investigated cases. The openly shared code along with the test case setups represent a radically new enabler for reactive flow simulations in the OpenFOAM framework.   
+		</div>
+
+		<p></p>
+	
+		<hr>
+	
 		<!-- DLBFoam -->
 		<paper_title><p style="font-size:15px;margin:0;"><a href="https://arxiv.org/abs/2011.07978" title="DLBFoam: An open-source dynamic load balancing model for fast reacting flow simulations in OpenFOAM" target="_blank"><b>DLBFoam: An open-source dynamic load balancing model for fast reacting flow simulations in OpenFOAM</b></a></p></paper_title>		  
 	    <p style="font-size:14px; margin-bottom:10px;">(<b>B. Tekgül</b>, P. Peltonen, H. Kahila, O. Kaario, V. Vuorinen)</p>
@@ -261,9 +278,9 @@
 	
 		<hr>
 
-		<paper_title><p style="font-size:15px;margin:0;"> <b>Large-eddy simulation of double injection strategies in RCCI conditions</b></a></p></paper_title>		  
+		<paper_title><p style="font-size:15px;margin:0;"> <b>Large-eddy simulation of split injection strategies in RCCI conditions</b></a></p></paper_title>		  
 	    <p style="font-size:14px; margin-bottom:10px;">(<b>B. Tekgül</b>, S. Karimkashi, O. Kaario, , H. Kahila, E. Lendormy, J. Hyvönen, V. Vuorinen)</p>
-	    <p style="font-size:14px;margin-bottom:5px;"><b>Submitted to Fuel</b></p>
+	    <p style="font-size:14px;margin-bottom:5px;"><b>Submitted to Combustion Theory and Modeling</b></p>
 		<!-- Abstract Button -->	
 		<button id="button" class="accordion" style="font-size:10px;margin-bottom:10px">View Abstract</button>	
 		<div class="panel">
