@@ -63,6 +63,23 @@
 		<br><br>
 		<h2>Publications</h2>
 		<hr>
+	      
+		<!-- DLBFoam -->
+		<paper_title><p style="font-size:15px;margin:0;"><a href="https://doi.org/10.1016/j.cpc.2021.108073" title="DLBFoam: An open-source dynamic load balancing model for fast reacting flow simulations in OpenFOAM" target="_blank"><b>DLBFoam: An open-source dynamic load balancing model for fast reacting flow simulations in OpenFOAM</b></a></p></paper_title>		  
+	    <p style="font-size:14px; margin-bottom:10px;">(<b>B. Tekgül</b>, P. Peltonen, H. Kahila, O. Kaario, V. Vuorinen)</p>
+		<p style="font-size:14px;margin-bottom:5px;"><b>Computer Physics Communications, 2021</b></p>
+		<!-- Data Download Button -->
+		<a href="https://github.com/blttkgl/DLBFoam" target="_blank">
+		<button class="accordion" style="font-size:10px;margin-bottom:10px">Source code <i class="fa fa-download"></i></button></a>
+		<!-- Abstract Button -->	
+		<button id="button" class="accordion" style="font-size:10px;margin-bottom:10px">View Abstract</button>	
+		<div class="panel">
+		  <p>Computational load imbalance due to direct integration of chemical kinetics is a well-known performance issue in parallel reacting flow simulations. We introduce an open-source dynamic load balancing model to address this problem within OpenFOAM, an open-source C++ library for Computational Fluid Dynamics (CFD). Due to the commonly applied operator splitting practice in reactive flow solvers, chemistry can be treated as an independent stiff ordinary differential equation (ODE) system within each computational cell. As a result of highly non-linear characteristics of chemical kinetics, a large variation in convergence rates of ODE integrator may occur, leading to a high load imbalance across multiprocessor configurations. However, the independent nature of chemistry ODE systems leads to a problem that can be parallelized easily (also termed embarrassingly parallel in the literature) during the flow solution. The presented model takes advantage of this feature and balances the chemistry load across available resources. When the load balancing is utilized together with a reference mapping model also introduced in this paper, a speed-up by a factor of 10 is reported for practical reactive flow simulations. To the best of our knowledge, this model is the first open-source implementation of chemistry load balancing in the literature.  
+		</div>
+
+		<p></p>
+	
+		<hr>
 		<paper_title><p style="font-size:15px;margin:0;"><a href="https://aaltodoc.aalto.fi/handle/123456789/107145" title="Numerical studies for diesel spray assisted methane ignition at low temperature conditions" target="_blank"><b>Numerical studies for diesel spray assisted methane ignition at low temperature conditions</b></a></p></paper_title>
 	    <p style="font-size:14px; margin-bottom:10px;">(<b>B. Tekgül</b>)</p>
 	    <p style="font-size:14px;margin-bottom:5px;"><b>Doctoral Dissertation</b></p>
@@ -228,23 +245,6 @@
 		<button id="button" class="accordion" style="font-size:10px;margin-bottom:10px">View Abstract</button>	
 		<div class="panel">
 		  <p>Detailed chemistry-based computational fluid dynamics (CFD) simulations are computationally expensive due to the solution of the underlying chemical kinetics system of ordinary differential equations (ODEs). Here, we introduce a novel open-source library aiming at speeding up such reactive flow simulations using OpenFOAM, an open-source C++ software for CFD. First, our dynamic load balancing model DLBFoam (Tekgül et al., 2021) is utilized to mitigate the computational imbalance due to chemistry solution in multiprocessor reactive flow simulations. Then, the individual (cell-based) chemistry solutions are optimized by implementing an analytical Jacobian formulation using the open-source library pyJac, and by increasing the efficiency of the ODE solvers by utilizing the linear algebra package LAPACK. We demonstrate the speed-up capabilities of this new library on various combustion problems. These test problems include a 2D turbulent reacting shear layer and 3D stratified combustion to highlight the favorable scaling aspects of the library on ignition/flame front initiation setups for dual-fuel combustion. Furthermore, two fundamental 3D demonstrations are provided on non-premixed and partially premixed flames, namely the ECN Spray A and the Sandia flame D experimental configurations. The novel model offers up to two orders of magnitude speed-up for most of the investigated cases. The openly shared code along with the test case setups represent a radically new enabler for reactive flow simulations in the OpenFOAM framework.   
-		</div>
-
-		<p></p>
-	
-		<hr>
-	
-		<!-- DLBFoam -->
-		<paper_title><p style="font-size:15px;margin:0;"><a href="https://arxiv.org/abs/2011.07978" title="DLBFoam: An open-source dynamic load balancing model for fast reacting flow simulations in OpenFOAM" target="_blank"><b>DLBFoam: An open-source dynamic load balancing model for fast reacting flow simulations in OpenFOAM</b></a></p></paper_title>		  
-	    <p style="font-size:14px; margin-bottom:10px;">(<b>B. Tekgül</b>, P. Peltonen, H. Kahila, O. Kaario, V. Vuorinen)</p>
-		<p style="font-size:14px;margin-bottom:5px;"><b>Submitted to Computer Physics Communications (Preprint available in arXiv)</b></p>
-		<!-- Data Download Button -->
-		<a href="https://github.com/blttkgl/DLBFoam" target="_blank">
-		<button class="accordion" style="font-size:10px;margin-bottom:10px">Source code <i class="fa fa-download"></i></button></a>
-		<!-- Abstract Button -->	
-		<button id="button" class="accordion" style="font-size:10px;margin-bottom:10px">View Abstract</button>	
-		<div class="panel">
-		  <p>Computational load imbalance due to direct integration of chemical kinetics is a well-known performance issue in parallel reacting flow simulations. We introduce an open-source dynamic load balancing model to address this problem within OpenFOAM, an open-source C++ library for Computational Fluid Dynamics (CFD). Due to the commonly applied operator splitting practice in reactive flow solvers, chemistry can be treated as an independent stiff ordinary differential equation (ODE) system within each computational cell. As a result of highly non-linear characteristics of chemical kinetics, a large variation in convergence rates of ODE integrator may occur, leading to a high load imbalance across multiprocessor configurations. However, the independent nature of chemistry ODE systems leads to a problem that can be parallelized easily (also termed embarrassingly parallel in the literature) during the flow solution. The presented model takes advantage of this feature and balances the chemistry load across available resources. When the load balancing is utilized together with a reference mapping model also introduced in this paper, a speed-up by a factor of 10 is reported for practical reactive flow simulations. To the best of our knowledge, this model is the first open-source implementation of chemistry load balancing in the literature.  
 		</div>
 
 		<p></p>
