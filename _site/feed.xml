@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.10.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2026-01-03T17:22:21+00:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Bulut Tekgül / Personal webpage</title><subtitle>Your Name&apos;s academic portfolio</subtitle><author><name>Bulut Tekgül</name><email>bulut.tekgul@wartsila.com</email></author><entry><title type="html">👋 Hello world</title><link href="http://localhost:4000/posts/2026/01/blogpost/" rel="alternate" type="text/html" title="👋 Hello world" /><published>2026-01-01T00:00:00+00:00</published><updated>2026-01-01T00:00:00+00:00</updated><id>http://localhost:4000/posts/2026/01/blogpost</id><content type="html" xml:base="http://localhost:4000/posts/2026/01/blogpost/"><![CDATA[<p>My resolution for 2026 was to finally start a blog, so here is my attempt to make that happen.</p>
+
+<p>My name is <strong>Bulut Tekgül</strong>, and I currently work as a <strong>Combustion &amp; CFD Expert at Wärtsilä Finland</strong>, a leading company in the marine and energy sectors. My day-to-day work revolves around understanding, modeling, and improving complex combustion systems, often under very real industrial constraints.</p>
+
+<p>I hold a <strong>PhD from Aalto University</strong>, where my academic background was firmly rooted in <strong>computational fluid dynamics (CFD) and combustion modeling</strong>. My doctoral research focused on <strong>high-fidelity simulations of reactive flows</strong>, with particular emphasis on <strong>internal combustion engines, spray combustion, and detailed chemical kinetics</strong>. During this time, I spent a lot of effort developing, configuring, and validating CFD workflows in <strong>OpenFOAM</strong>, working with moving meshes, multiphase flows, and reactive simulations.</p>
+
+<p>After my PhD, I continued in academia as a <strong>postdoctoral researcher at Argonne National Laboratory</strong> in the United States. There, I worked in a high-performance computing environment on advanced combustion and CFD problems, further deepening my experience with large-scale simulations, model validation, and the gap between fundamental research and practical engineering applications.</p>
+
+<p>Before my current role, I worked across both <strong>academic and applied research environments</strong>, contributing to engine-related CFD projects that combined numerical methods, physical modeling, and experimental comparison. Over time, my work has increasingly lived at the intersection of <strong>theory, simulation, and engineering reality</strong> — where models have to be accurate, robust, and usable.</p>
+
+<h2 id="why-this-blog">Why this blog?</h2>
+
+<p>The idea behind this blog is simple:</p>
+
+<ul>
+  <li>to share insights from my work in <strong>combustion and CFD</strong></li>
+  <li>to write practical posts about <strong>OpenFOAM</strong>, including workflows, pitfalls, and useful hacks</li>
+  <li>to document things I wish I had written down years ago</li>
+  <li>and occasionally to reflect on <strong>engineering, research, and careers in technical fields</strong></li>
+</ul>
+
+<p>This won’t be a textbook, and it won’t be marketing suggesting that everything works perfectly. It’s more of a <strong>working engineer’s notebook</strong>, cleaned up enough to be useful to others.</p>
+
+<p>If you’re working with <strong>OpenFOAM</strong>, engine simulations, combustion modeling, or just enjoy thinking about how complex simulations meet real-world constraints, you’ll probably find something familiar here.</p>
+
+<p>Thanks for reading and welcome!</p>]]></content><author><name>Bulut Tekgül</name><email>bulut.tekgul@wartsila.com</email></author><category term="CFD" /><category term="OpenFOAM" /><category term="Engineering" /><summary type="html"><![CDATA[My resolution for 2026 was to finally start a blog, so here is my attempt to make that happen.]]></summary></entry></feed>
