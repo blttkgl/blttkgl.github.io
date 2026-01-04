@@ -1,6 +1,6 @@
 ---
 title: 'Automation beats perfection'
-date: 2026-01-05
+date: 2026-01-06
 permalink: /posts/2026/01/automation_beats_perfection/
 tags:
   - OpenFOAM
@@ -85,9 +85,9 @@ One of the most underused features in OpenFOAM case setups is the ability to use
 Early on, I treated dictionaries as static configuration files. Over time, I realized they can (and should) behave more like **parameterized inputs**.
 
 Using:
-- `#include`
+- `#include`, `#includeIfPresent`
 - `#calc`
-- `#if`, `#else`, `#endif`
+- `#if`, `#else`, `#endif`, `#ifEq`
 - macros
 
 you can build case setups that **adapt automatically** instead of being manually duplicated and edited.
