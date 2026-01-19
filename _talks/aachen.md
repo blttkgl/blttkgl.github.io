@@ -2,7 +2,7 @@
 title: "LES analysis of ambient temperature effect on diesel spray ignition in methane-air mixtures"
 collection: talks
 type: "Conference proceedings talk"
-permalink: /talks/2014-03-01-talk-3
+permalink: /talks/2019-aachen
 venue: "17th International Conference on Numerical Combustion"
 date: 2019-10-17
 location: "Aachen, Germany"
