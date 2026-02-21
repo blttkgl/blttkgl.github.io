@@ -1,6 +1,6 @@
 ---
 title: 'Bayesian Optimization of CFD Simulations in OpenFOAM'
-date: 2026-02-19
+date: 2199-02-19
 permalink: /posts/2026/02/optimization/
 tags:
   - Flowboost
@@ -10,7 +10,7 @@ tags:
 ---
 
 
-Back in 2024, I had the pleasure of advising Mr. [Daniel Virokannas](https://www.linkedin.com/in/danielvirokannas/) on his Master's thesis, [Bayesian optimization of in-situ adaptive tabulation for marine engine CFD simulations](https://aaltodoc.aalto.fi/server/api/core/bitstreams/d99091dd-25cb-4e66-9233-06cbee0229ac/content). 
+Back in 2024, I had the pleasure of advising Mr. [Daniel Virokannas](https://www.linkedin.com/in/danielvirokannas/) on his Master's thesis, [Bayesian optimization of in-situ adaptive tabulation for marine engine CFD simulations](https://aaltodoc.aalto.fi/server/api/core/bitstreams/d99091dd-25cb-4e66-9233-06cbee0229ac/content).
 
 He applied Bayesian Optimization to fine-tune input parameters for in-situ adaptive tabulation in chemistry computations, achieving a balance between performance and accuracy for internal combustion engine simulations. Daniel’s work was exceptional, delivering results that are still in use today. Beyond the thesis, he also made the optimization framework open source as [FlowBoost](https://github.com/499602D2/flowboost).
 
