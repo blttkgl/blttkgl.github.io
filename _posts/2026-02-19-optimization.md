@@ -420,7 +420,7 @@ FlowBoost organizes each optimization session in a clear, reproducible structure
 
 This system ensures that hundreds of designs can be explored without losing track of any simulation, and makes it easy to visualize or analyze results at any time.
 
-## Scaling the HPC Clusters
+## Scaling to the HPC Clusters
 For small cases, the local scheduler works fine. But for heavier 3D simulations, you can switch to a cluster:
 
 ```python
