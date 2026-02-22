@@ -1,0 +1,83 @@
+
+=== All Designs in Submission Order (by 'L/D') ===
+Rank   Case Name                           L/D                Parameters
+----------------------------------------------------------------------------------------------------
+1      job_00001_9ed1b276                  1.263423           angleOfAttack=36.691, speed=20.000
+2      job_00002_d0bc95b0                  1.976539           angleOfAttack=18.332, speed=20.000
+3      job_00003_0fd9b250                  2.117722           angleOfAttack=26.744, speed=20.000
+4      job_00004_3299952b                  39.045622          angleOfAttack=4.835, speed=20.000
+5      job_00005_635f0aa6                  -12.595074         angleOfAttack=-1.541, speed=15.000
+6      job_00006_52a039a0                  44.591407          angleOfAttack=12.323, speed=10.000
+7      job_00007_d6ec322b                  -48.053764         angleOfAttack=-11.080, speed=10.000
+8      job_00008_6696ee70                  1.233705           angleOfAttack=22.530, speed=15.000
+9      job_00009_f0ad7182                  11.039872          angleOfAttack=1.275, speed=20.000
+10     job_00010_42276aa4                  35.662538          angleOfAttack=4.835, speed=10.000
+11     job_00011_07e484c0                  49.451107          angleOfAttack=9.109, speed=10.000
+12     job_00012_44c93a7f                  60.699678          angleOfAttack=10.316, speed=20.000
+13     job_00013_4497ffb2                  52.660474          angleOfAttack=8.348, speed=15.000
+14     job_00014_12cd165a                  54.767816          angleOfAttack=9.569, speed=15.000
+15     job_00015_f4312f83                  59.749353          angleOfAttack=9.426, speed=20.000
+16     job_00016_f22d35e4                  60.762929          angleOfAttack=10.861, speed=20.000
+17     job_00017_fc565472                  55.284726          angleOfAttack=10.537, speed=15.000
+18     job_00018_442a1454                  60.482194          angleOfAttack=9.887, speed=20.000
+19     job_00019_f2b8432e                  59.092855          angleOfAttack=9.098, speed=20.000
+20     job_00020_b6d9e4ff                  -3.148219          angleOfAttack=-20.000, speed=15.000
+21     job_00021_2ddb85d6                  60.880481          angleOfAttack=10.510, speed=20.000
+22     job_00022_e55c0d4f                  60.894583          angleOfAttack=10.655, speed=20.000
+23     job_00023_3f765947                  -59.508561         angleOfAttack=-12.065, speed=20.000
+24     job_00024_91dd2ab2                  -55.080586         angleOfAttack=-10.905, speed=15.000
+25     job_00025_1b0b875e                  60.826772          angleOfAttack=10.599, speed=20.000
+26     job_00026_915159f2                  60.887784          angleOfAttack=10.626, speed=20.000
+27     job_00027_81dcded9                  60.862184          angleOfAttack=10.571, speed=20.000
+28     job_00028_6e81bb60                  60.918293          angleOfAttack=10.688, speed=20.000
+29     job_00029_c960feac                  60.883299          angleOfAttack=10.755, speed=20.000
+30     job_00030_cc7f4089                  60.897189          angleOfAttack=10.641, speed=20.000
+31     job_00031_5adb9430                  60.840265          angleOfAttack=10.670, speed=20.000
+32     job_00032_5d2e3a3a                  60.914313          angleOfAttack=10.613, speed=20.000
+33     job_00033_3183016f                  60.913708          angleOfAttack=10.599, speed=20.000
+34     job_00034_086f84a4                  60.843419          angleOfAttack=10.714, speed=20.000
+35     job_00035_27075060                  60.871695          angleOfAttack=10.468, speed=20.000
+36     job_00036_6061e029                  60.857062          angleOfAttack=10.601, speed=20.000
+37     job_00037_6e472a15                  60.854889          angleOfAttack=10.612, speed=20.000
+38     job_00038_c5828c73                  48.745241          angleOfAttack=10.730, speed=10.000
+39     job_00039_4287886b                  60.871705          angleOfAttack=10.614, speed=20.000
+40     job_00040_8d86b2f8                  1.271462           angleOfAttack=34.100, speed=15.000
+41     job_00041_619225c2                  60.857675          angleOfAttack=10.655, speed=20.000
+42     job_00042_dafbcd3e                  60.087900          angleOfAttack=11.668, speed=20.000
+43     job_00043_95bc53fe                  60.805905          angleOfAttack=10.813, speed=20.000
+44     job_00044_60f89228                  60.758357          angleOfAttack=10.626, speed=20.000
+45     job_00045_38245874                  60.879551          angleOfAttack=10.701, speed=20.000
+46     job_00046_62e36ce3                  60.884496          angleOfAttack=10.580, speed=20.000
+47     job_00047_5e9c68de                  60.854206          angleOfAttack=10.818, speed=20.000
+48     job_00048_b0192162                  60.811993          angleOfAttack=10.614, speed=20.000
+49     job_00049_e5e23487                  60.911612          angleOfAttack=10.565, speed=20.000
+
+=== Top 5 Designs (by 'L/D') ===
+Rank   Case Name                           L/D                Parameters
+----------------------------------------------------------------------------------------------------
+1      job_00028_6e81bb60                  60.918293          angleOfAttack=10.688, speed=20.000
+2      job_00032_5d2e3a3a                  60.914313          angleOfAttack=10.613, speed=20.000
+3      job_00033_3183016f                  60.913708          angleOfAttack=10.599, speed=20.000
+4      job_00030_cc7f4089                  60.897189          angleOfAttack=10.641, speed=20.000
+5      job_00022_e55c0d4f                  60.894583          angleOfAttack=10.655, speed=20.000
+
+— Bulut
+
+
+=== Top 5 Designs (by 'L/D') ===
+Rank   Case Name                           L/D                Parameters
+----------------------------------------------------------------------------------------------------
+1      job_00019_4b353e71                  60.898365          angleOfAttack=10.673, speed=20.000
+2      job_00016_7ca3d7c8                  55.238217          angleOfAttack=10.394, speed=15.000
+3      job_00018_194ac75e                  55.147804          angleOfAttack=10.763, speed=15.000
+4      job_00014_1d5407d0                  54.652678          angleOfAttack=9.441, speed=15.000
+5      job_00011_d0792dd6                  53.343083          angleOfAttack=12.012, speed=15.000
+
+2026-02-22 00:27:10 FIL41689W root[318913] INFO Moving data for finished job id='366712' name='flwbst_job_00020_e9587d92' running=(9 minutes, 49 seconds)
+2026-02-22 00:27:10 FIL41689W root[318913] INFO Moved data for job 366712 to flowboost_data/cases_completed/job_00020_e9587d92
+2026-02-22 00:27:10 FIL41689W root[318913] INFO Case job_00020_e9587d92 marked as successful
+2026-02-22 00:27:11 FIL41689W root[318913] INFO Target value reached! L/D=60.898365 (target=60.000000)
+2026-02-22 00:27:11 FIL41689W root[318913] INFO Termination criteria met - stopping optimization
+2026-02-22 00:27:11 FIL41689W root[318913] INFO Designs log written to flowboost_data/designs.json (20 designs)
+2026-02-22 00:27:11 FIL41689W root[318913] INFO Optimization complete!
+
