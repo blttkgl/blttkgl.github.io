@@ -1,88 +1,70 @@
 ---
-title: 'Bayesian Optimization of CFD Simulations in OpenFOAM'
-date: 2199-02-19
+title: 'Automating CFD Design Optimization in OpenFOAM with Bayesian Optimization'
+date: 2026-02-19
 permalink: /posts/2026/02/optimization/
 tags:
-  - Flowboost
-  - Bayesian Optimization
   - OpenFOAM
-  - ISAT
+  - CFD
+  - Bayesian Optimization
+  - FlowBoost
+  - Parametric Optimization
 ---
 
+Running design optimization in CFD is usually slow, tedious, and expensive. This is especially true when you have many design variables and rely on traditional design of experiments (DoE), which can require **an enormous number of simulations** to explore the space.
 
-Back in 2024, I had the pleasure of advising Mr. [Daniel Virokannas](https://www.linkedin.com/in/danielvirokannas/) on his Master's thesis, [Bayesian optimization of in-situ adaptive tabulation for marine engine CFD simulations](https://aaltodoc.aalto.fi/server/api/core/bitstreams/d99091dd-25cb-4e66-9233-06cbee0229ac/content).
+What if you could **automate the process, explore hundreds of design variations efficiently, and find optimal designs**, all using open-source tools like OpenFOAM? Then this article is for you 😊
 
-He applied Bayesian Optimization to fine-tune input parameters for in-situ adaptive tabulation in chemistry computations, achieving a balance between performance and accuracy for internal combustion engine simulations. Daniel’s work was exceptional, delivering results that are still in use today. Beyond the thesis, he also made the optimization framework open source as [FlowBoost](https://github.com/499602D2/flowboost).
+[FlowBoost](https://github.com/499602D2/flowboost) is an open-source framework for automating design optimization in OpenFOAM. It can modify cases, run simulations locally or on a cluster, track results, and suggest new designs, letting you focus on insight rather than manual trial and error. 
 
-FlowBoost is a modular, cluster-native framework for optimizing OpenFOAM CFD simulations using Bayesian methods. It provides a high-level abstraction for managing OpenFOAM cases, supports multi-objective optimization via Meta’s [Ax](https://ax.dev/) platform, and can interface with any optimizer through simple backend bindings. Designed for flexibility and scalability, FlowBoost allows users to run hands-off, high-dimensional optimization campaigns, from simple tutorial cases to complex engine simulations, making it a powerful tool for CFD researchers and engineers.
+Originally developed in 2024 by [Daniel Virokannas](https://www.linkedin.com/in/danielvirokannas/) on his Master's thesis which I acted as an advisor, [Bayesian optimization of in-situ adaptive tabulation for marine engine CFD simulations](https://aaltodoc.aalto.fi/server/api/core/bitstreams/d99091dd-25cb-4e66-9233-06cbee0229ac/content), FlowBoost have since been [open-sourced](https://github.com/499602D2/flowboost) and been living on GitHub since then. After I [forked](https://github.com/blttkgl/flowboost) and polished it for my own CFD workflows (introducing new functionality, squashing some critical bugs), it became a useful tool for automated design campaigns, from simple tutorial problems to complex cases.
 
-After Daniel moved on to other fields, FlowBoost sat on my desk for almost two years, until I suddenly needed a tool for design optimization. It turned out to be exactly what I needed, though there were a number of issues that needed fixing. I [forked the repository](https://github.com/blttkgl/flowboost) and started working through them, gradually getting it fully operational and tailored for my CFD workflows.
+In this article, I’ll show you how to **set up an OpenFOAM case for optimization, define objectives, and run automated campaigns**, all illustrated with a simple, reproducible NACA0012 airfoil example.<br><br>
 
-With FlowBoost ready to go, I could finally tackle one of the most common questions in CFD: how to run design optimization studies, in particular in OpenFOAM. In this article, I’ll walk through the key steps, from setting up your case and defining objectives, to running automated optimization campaigns, and showing how a structured workflow can save time and uncover better designs more efficiently.
+# Part 1: Defining the Problem & Our Airfoil Case
 
-Before diving into the specifics of running design optimization in OpenFOAM, it’s worth noting that I’ve tackled design optimization problems in CFD before. One example is the work on “[Design Optimization of an Ethanol Heavy‑Duty Engine](https://asmedigitalcollection.asme.org/gasturbinespower/article/145/10/101001/1164119/Design-Optimization-of-an-Ethanol-Heavy-Duty)” published in 2023. In that study, we used a combination of design of experiments (DoE) and Bayesian optimization to explore the design space of a heavy‑duty compression‑ignition engine running on ethanol. We parameterized features such as piston bowl geometry and spray targeting angle, leveraged CFD simulations to evaluate hundreds of candidate designs, and identified configurations that increased indicated thermal efficiency by a few percentage points while meeting operational constraints. Unlike that workflow, which relied on licensed tools like [CAESES](https://www.caeses.com) and [CONVERGE](https://convergecfd.com), OpenFOAM and FlowBoost are fully open source, providing much more flexibility for custom workflows and experimentation.
+Before starting any design optimization, you need to clearly define **what you are optimizing**:
 
-Finally, before we get into the workflow, a quick note on Bayesian optimization. I won’t go into the mathematical details here, but at a high level, it’s an approach that efficiently explores a design space by learning from previous simulation results. Instead of testing every possible combination of parameters, it predicts which new designs are most likely to improve your objectives, striking a balance between exploration and exploitation. This makes it particularly well suited for computationally expensive CFD simulations, where evaluating every candidate design would be prohibitively costly.
+- **Design variables (dimensions)**: The parameters you can change, e.g., piston bowl shape, nozzle diameter, angle of attack, or inlet velocity.
 
+- **Objective function**: What you want to maximize or minimize, such as:
+  - Lift-to-drag ratio (airfoils)
 
-<figure>
-  <img src="https://upload.wikimedia.org/wikipedia/commons/0/02/GpParBayesAnimationSmall.gif" alt="GP Parallel Bayes Animation" width="100">
-  <figcaption>Bayesian Optimization using Gaussian Processes (source: Wikimedia Commons)</figcaption>
-</figure>
+  - Thermal efficiency (engines)
 
-# Defining the problem
+  - Pressure drop (ducts or heat exchangers)
 
-Before starting any design optimization, the first step is to define **what you are optimizing**. This involves two key elements:
+  - Peak temperature (avoid thermal stress or reduce NOx)
 
-- **Design variables (dimensions)**: These are the parameters you can change in your system. For example, in a CFD case, this could include geometric features like the piston bowl shape, inlet guide vane angle, or nozzle diameter, or operational parameters like injection timing or boundary conditions.
+A well-defined problem specifies **which parameters vary**, their feasible ranges, and the **target objectives**. This is your foundation for effective optimization.
 
-- **Objective function**: This is the quantity you want to maximize or minimize. Typical examples include:
+## Our problem: NACA0012 Airfoil
 
-  - Maximizing efficiency: Increasing indicated or thermal efficiency of an engine.
+To keep things simple and reproducible, we’ll use the NACA0012 Steady OpenFOAM tutorial, simulating low-Mach laminar flow over a 2D airfoil.
 
-  - Minimizing pressure drop: Reducing losses in a duct or heat exchanger.
+**Why this case works well for optimization**:
 
-  - Maximizing lift-to-drag ratio: For an airfoil or wing section.
-
-  - Minimizing peak temperature: To avoid thermal stress or reduce NOx formation.
-
-A well-defined problem clearly specifies which parameters can vary, their feasible ranges, and the target objectives. This forms the foundation for running an effective optimization campaign.
-
-# Our problem: NACA0012 Airfoil
-
-For this article, I wanted a problem that’s small and accessible enough for anyone to replicate on their own computer. I chose the 2D NACA0012 Steady tutorial from OpenFOAM, which simulates flow over a NACA0012 airfoil at low Mach numbers.
-
-In this setup, the airfoil is placed in a rectangular computational domain with uniform inlet velocity and simple boundary conditions on the top, bottom, and far-field boundaries. The flow is modeled as incompressible and laminar, and the solver computes the steady-state pressure and velocity fields around the airfoil.
-
-This problem is ideal for demonstrating design optimization because it has:
-
-- **Clear objectives**: such as minimizing drag or maximizing lift.
+- **Clear objectives**: minimize drag, maximize lift, or optimize L/D ratio.
 
 - **Simple geometry**: a single 2D airfoil that can be parameterized easily (e.g., by angle of attack).
 
-- **Fast runtimes**: simulations can run in few minutes, making it perfect for iterative optimization campaigns with FlowBoost.
+- **Fast runtimes**: each simulation takes minutes, perfect for iterative optimization.
 
-You can check out the tutorial case [here](https://github.com/OpenFOAM/OpenFOAM-dev/tree/master/tutorials/fluid/aerofoilNACA0012Steady)
- and follow along step by step.
+You can follow along with the tutorial [here](https://github.com/OpenFOAM/OpenFOAM-dev/tree/master/tutorials/fluid/aerofoilNACA0012Steady).
 
-## Defining Design Variables and Objectives
+## Design Variables and Objective
 
-For our NACA0012 airfoil case, we’ll define two design variables:
+For our NACA0012 airfoil case, we define **two design variables**:
 
-- **Angle of Attack (AoA)** – The orientation of the airfoil relative to the incoming flow. Small changes in AoA can significantly affect both lift and drag.
+- **Angle of Attack (AoA)** – the orientation of the airfoil relative to flow. Small changes can greatly affect lift and drag.
 
-- **Inlet Flow Speed** – The uniform velocity of the air entering the domain. This affects the Reynolds number and the overall aerodynamic forces on the airfoil.
+- **Inlet Flow Speed** – the uniform velocity entering the domain, affecting Reynolds number and aerodynamic forces.
 
-Our objective will be to maximize the **lift-to-drag ratio (L/D)**. This captures the airfoil’s aerodynamic efficiency: we want the airfoil to generate as much lift as possible while minimizing drag. Using L/D as the target ensures the optimizer favors designs that are both strong and efficient, rather than simply increasing lift at the cost of excessive drag.
+**Objective**: Maximize the l**ift-to-drag ratio (L/D)**, rewarding designs that are both strong and efficient, not just high-lift designs with massive drag.
 
-With the problem defined and the design variables set, we’re ready to link the OpenFOAM case to FlowBoost and set up the optimization campaign.
+I picked this tutorial specifically because the two parameters we will change are already parametrized, and a function object for lift and drag coefficients is already set up:
 
-## Setting up the OpenFOAM case for FlowBoost
-### Step 1: Prepare the baseline case
 
-Start with the OpenFOAM NACA0012Steady tutorial. Make sure the case runs to completion and produces reasonable lift and drag values. This ensures that your baseline is stable before introducing parameter variations.
-
-When I do that on my end, I see that the case has an Angle of Attack of degrees, and speed is 250 m/s, both defined for velocity boundary condition, located at **0/U** :
+In  **0/U** :
 
 
 ```bash
@@ -139,22 +121,23 @@ boundaryField
 
 ```
 
-This is very good news, because the two parameters we would like to investigate are already configured and parametrised, we just need to change them!
+and in **postProcessing/forceCoeffsCompressible/0/forceCoeffs.dat**:
 
-There is also a function object that writes the drag and lift coefficient for us, into **postProcessing/forceCoeffsCompressible/0/forceCoeffs.dat**:
 
 | ![Drag](/images/drag.png) | ![Lift](/images/lift.png) |
 |:-------------------------:|:-------------------------:|
 | **Drag**                  | **Lift**                  |
 
 
-Looks like we can get to the next step!
+Looks like we can get to the next step!<br><br>
 
-### Step 2: Parameterize the design variables
 
-Let's start getting our hands dirty with FlowBoost. I will introduce everything block by block, and explain step by step.
+# Part 2: Linking OpenFOAM to FlowBoost
 
-#### 1. Imports and Setup
+Once the problem and design variables are defined, the next step is c**onnecting your OpenFOAM case to FlowBoost** and telling it how to explore the design space.
+
+
+## 1. Imports and Setup
 
 ```python
 from pathlib import Path
@@ -171,27 +154,11 @@ from flowboost.optimizer.search_space import Dimension
 from flowboost.session.session import Session
 ```
 
-- Path, warnings – Standard Python modules for file paths and suppressing warnings.
+- Standard Python modules: ```Path``` for file paths, ```coloredlogs``` for logging, ```polars``` for fast DataFrame handling.
 
-- coloredlogs – Provides nicely formatted logging output.
+- FlowBoost modules: manage sessions, OpenFOAM cases, design variables, objectives, and job execution.
 
-- polars – Fast DataFrame library used for handling OpenFOAM function object outputs.
-
-- flowboost modules – Import the main components of FlowBoost:
-
-   - Manager → handles running simulations locally or on a cluster.
-
-   - Case → represents an OpenFOAM case template that can be cloned and modified.
-
-   - Dictionary → lets you access and edit OpenFOAM dictionary entries.
-
-   - Objective → defines what you want to optimize.
-
-   - Dimension → defines the range or choices of design variables.
-
-   - Session → manages the entire optimization workflow.
-
-#### 2. Define the Objective Function
+## 2. Define the Objective Function
 ```python
 def max_lift_drag_objective(case: Case):
     my_func_obj = "forceCoeffsCompressible"
@@ -206,17 +173,13 @@ def max_lift_drag_objective(case: Case):
     return last_cl / last_cd
 ```
 
-- This function tells FlowBoost how to evaluate the “goodness” of each simulation.
+- Reads lift (Cl) and drag (Cd) from OpenFOAM’s function object.
 
-- Reads lift (Cl) and drag (Cd) from the OpenFOAM function object forceCoeffsCompressible.
+- Computes **L/D ratio**, which FlowBoost will try to maximize.
 
-- Computes lift-to-drag ratio (L/D), which we are trying to maximize.
+- Returns ```None``` if simulation fails, so FlowBoost can handle it.
 
-- If no data is available (e.g., simulation failed), it returns None so FlowBoost can handle it.
-
-**Tip for readers**: Your objective function can compute any derived metric you want, like max pressure, efficiency, or temperature limits.
-
-#### 3. Start a FlowBoost Session
+## 3. Start a FlowBoost Session
 
 ```python
 session = Session(
@@ -227,25 +190,22 @@ session = Session(
 )
 ```
 
-- Creates a new optimization session that will track all cases and results.
+- ```clone_method="copy"``` → each new trial gets a fresh copy of the template case (foamCloneCase can also be used as an option).
 
-- clone_method="copy" → FlowBoost makes copies of the template case for each new trial.
+- ```max_evaluations=50``` → optimizer will explore up to 50 designs.
 
-- max_evaluations=50 → the optimizer will try up to 50 designs.
-
-
-#### 4. Define the Template OpenFOAM Case
+## 4. Define the Template OpenFOAM Case
 ```python
 case_dir = Path(data_dir, "aerofoilNACA0012Steady_template")
 naca_case = Case.from_tutorial("fluid/aerofoilNACA0012Steady", case_dir, method="copy")
 session.attach_template_case(case=naca_case)
 ```
 
-- Case.from_tutorial → loads the NACA0012 tutorial as a template case.
+- Load NACA0012 tutorial as a **template case**.
 
-- attach_template_case → links it to the session so FlowBoost can create multiple clones and modify design variables automatically.
+- FlowBoost clones and modifies this template for each new design automatically.
 
-#### 5. Define the Optimization Objective
+## 5. Register Optimization Objective
 ```python
 objective = Objective(
     name="L/D",
@@ -254,19 +214,14 @@ objective = Objective(
     normalization_step="yeo-johnson",
 )
 session.backend.set_objectives([objective])
-
 ```
-Tells FlowBoost:
+- Name: "```L/D```"
 
-- Name: "L/D"
+- Maximize (not minimize)
 
-- maximize (not minimize)
+- Normalization helps Bayesian optimization converge faster.
 
-- objective function: the Python function defined earlier
-
-- normalization: “Yeo-Johnson” scales values for more efficient Bayesian optimization.
-
-#### 6. Define the Design Variables (Search Space)
+## 6. Define Design Variables (Search Space)
 
 ```python
 # Angle of attack dimension
@@ -290,15 +245,13 @@ speed_dim = Dimension.choice(
 session.backend.set_search_space([aoa_dim, speed_dim])
 ```
 
-- Angle of Attack (AoA): continuous range from -20° to 40°.
+- **AoA**: continuous from -20° to 40°
 
-- Speed: discrete choice of 10, 15, 20 m/s.
+- **Speed**: discrete choices 10, 15, 20 m/s
 
-- Dictionary.link points to the dictionary entry in the OpenFOAM case (0/U) that will be modified automatically.
+- ```Dictionary.link``` points to OpenFOAM dictionary entries (```0/U```) for automatic updates.
 
-- This defines the design space for the optimizer.
-
-#### 7. Configure Job Management
+## 7. Configure Job Management
 ```python
 scheduler = "Local"
 
@@ -314,17 +267,17 @@ session.clean_pending_cases()
 session.start()
 ```
 
-- Job manager: controls how simulations are run.
+- Scheduler: "```Local```" for your laptop/workstation. Switch to "```slurm```" for clusters.
 
-- scheduler="Local" → runs jobs on your own computer (can switch to "slurm" for clusters).
+- ```job_limit=5``` → 5 simulations run in parallel.
 
-- job_limit=5 → up to 5 parallel simulations at a time.
+- ```initialization_trials=4``` → 4 random Sobol-sampled designs to learn the space (should be much more for more dimensions).
 
-- initialization_trials=4 → FlowBoost starts with 4 random designs sampled with Sobol sampling, to “learn” the space.
+- ```clean_pending_cases()``` → removes unfinished cases.
 
-- clean_pending_cases() → removes unfinished or failed cases from previous runs.
+- ```start()``` → begins the optimization campaign.
 
-- start() → begins the optimization campaign.
+## 8. Flow of the Optimization Loop
 
 ```mermaid
 %%{init: {
@@ -345,213 +298,158 @@ flowchart LR
     E --> A
 ```
 
+- Optimizer proposes a design → case is updated → simulation runs → results update optimizer → repeat.
 
-Now when you run [this script](/images/aerofoilNACA0012Steady.py) with ```python aerofoilNACA0012Steady.py``` it will start the optimization session.
+- Fully automated, hands-off CFD optimization.<br><br>
 
-## Understanding the ```flowboost_data ```  Folder Structure
-The ```flowboost_data``` directory organizes all the data, cases, and configuration files for your aerofoil optimization session ```aerofoilNACA0012Steady```. Its structure is designed to separate templates, completed cases, pending cases, and design metadata in a way that makes automated CFD workflows manageable and reproducible.
+# Part 3: Running the Optimization & Interpreting Results
+
+Once your FlowBoost session is set up, running the optimization is straightforward. [This Python script I prepared]((/images/aerofoilNACA0012Steady.py)) will handle everything:
+
+```
+python aerofoilNACA0012Steady.py
+```
+
+FlowBoost will:
+
+1- **Generate new designs**: Suggest new AoA and speed combinations using Bayesian optimization.
+
+2- **Clone the template case**: Copies the NACA0012 template for each design.
+
+3- **Modify parameters**: Updates the OpenFOAM dictionaries (0/U) automatically.
+
+4- **Run simulations**: Executes OpenFOAM cases either locally or on a SLURM cluster.
+
+5- **Evaluate objectives**: Computes L/D for each design from the function object output.
+
+## Watching the Progress
+
+The session creates a clear folder structure:
 
 ```
 flowboost_data/
-├── aerofoilNACA0012Steady_template/
-├── cases_completed/
-├── cases_pending/
-├── designs.json
-├── flowboost_config.toml
-└── job_tracking_Local.json
+├── cases_pending/      # currently running or queued
+├── cases_completed/    # finished simulations
+├── designs.json        # parameters + results
+└── job_tracking_*.json # scheduler info
 ```
 
-### 1. ```aerofoilNACA0012Steady_template/```
+- ```cases_pending/```: Shows which designs are actively running.
 
-This folder contains the template case for new simulations. Every new design is initially based on this template, which we configure in the FlowBoost script.
+- ```cases_completed/```: Each folder contains the OpenFOAM results for a completed design.
 
-### 2. ```cases_completed/```
+- ```designs.json```: Central record — easy to plot, analyze, or feed into further optimization.
 
-This folder contains **finished simulation cases**. Each completed design has a unique folder name, e.g.:
+## Monitoring Convergence
 
-```
-job_00001_6f5d75a5
-job_00002_8a0cac16
-```
+FlowBoost’s Bayesian optimization balances **exploration vs. exploitation**, meaning early trials explore the parameter space broadly, while later trials focus on promising regions. It will show you all the designs and their objective values in submission order in the log:
 
-### 3. ```cases_pending/```
-
-This folder contains cases that are **either running or queued for execution**. Each pending case has a similar structure to completed cases.
-
-Each pending case has a ```metadata.toml``` file that records:
-
-- The design name and ID
-
-- File system path
-
-- Creation timestamp and generation index
-
-- Status (submitted, running, etc.)
-
-- Optimizer suggestions for each parameter (e.g., angleOfAttack, speed)
-
-This allows the optimization system to track which designs are in progress and which values were proposed by the optimizer.
-
-### 3. ```designs.json```
-
-This JSON file is the central record of all designs for the session. It includes:
-
-- Session name and timestamp
-
-- Number of designs
-
-- List of design objects with:
-
-- Unique name and generation index
-
-- Creation time
-
-- Parameters used (angleOfAttack, speed)
-
-- Objectives evaluated (e.g., L/D ratio)
-
-Example entry:
-
-```
-{
-  "name": "job_00001_6f5d75a5",
-  "generation_index": "00001.01",
-  "parameters": {
-    "angleOfAttack": -3.00766,
-    "speed": 20
-  },
-  "objectives": {
-    "L/D": { "value": -25.4593, "minimize": false }
-  }
-}
+```bash
+=== All Designs in Submission Order (by 'L/D') ===
+Rank   Case Name                           L/D                Parameters
+----------------------------------------------------------------------------------------------------
+1      job_00001_9ed1b276                  1.263423           angleOfAttack=36.691, speed=20.000
+2      job_00002_d0bc95b0                  1.976539           angleOfAttack=18.332, speed=20.000
+...
+49     job_00049_e5e23487                  60.911612          angleOfAttack=10.565, speed=20.000
 ```
 
-This file is essential for **tracking the entire design history** and serves as the basis for generating new optimizer suggestions.
+It will also plot the top 5 designs at instances when a new design is being submitted:
 
-### 4. flowboost_config.toml
-
-This is the main configuration file for the session.
-
-- Session paths define where designs are stored and where completed cases are archived.
-
-- Optimizer section specifies the backend used (here AxBackend).
-
-- Scheduler section controls local job execution (job_limit = 5).
-
-```
-[session]
-name = "aerofoilNACA0012Steady"
-data_dir = "flowboost_data"
-case_dir = "flowboost_data/cases_pending"
-archival_dir = "flowboost_data/cases_completed"
-dataframe_format = "polars"
-created_at = "2026-02-21T18:17:16"
-
-[template]
-path = "/home/blttkgl/flowboost/examples/aerofoilNACA0012Steady/flowboost_data/aachenBomb_template"
-additional_files = []
-
-[optimizer]
-type = "AxBackend"
-offload_acquisition = false
-
-[scheduler]
-type = "Local"
-job_limit = 5
+```bash
+=== Top 5 Designs (by 'L/D') ===
+Rank   Case Name                           L/D                Parameters
+----------------------------------------------------------------------------------------------------
+1      job_00028_6e81bb60                  60.918293          angleOfAttack=10.688, speed=20.000
+2      job_00032_5d2e3a3a                  60.914313          angleOfAttack=10.613, speed=20.000
+3      job_00033_3183016f                  60.913708          angleOfAttack=10.599, speed=20.000
+4      job_00030_cc7f4089                  60.897189          angleOfAttack=10.641, speed=20.000
+5      job_00022_e55c0d4f                  60.894583          angleOfAttack=10.655, speed=20.000
 ```
 
 
-### 5. job_tracking_Local.json
+ You can also visualize progress by plotting:
 
-Tracks currently running or queued jobs in the local scheduler:
-```
-{
-  "type": "Local",
-  "wdir": "/home/blttkgl/flowboost/examples/aerofoilNACA0012Steady/flowboost_data",
-  "job_limit": 5,
-  "job_pool": [
-    {
-      "id": "80274",
-      "name": "flwbst_job_00015_1b285b0e",
-      "wdir": "/home/blttkgl/.../cases_pending/job_00015_1b285b0e",
-      "created_at": "2026-02-21T18:47:51"
-    },
-    ...
-  ],
-  "acquisition_job": null
-}
-```
+- Lift-to-drag ratio vs. trial number
 
-- job_pool lists all active simulation jobs.
+- AoA and speed vs. L/D
 
-- Each entry points to the corresponding pending case folder.
+using the [```visualise.py```](/images/visualise.py) script I provided you can plot the results, and it even generates a GIF showing the optimization progress, which I may shamelessly show off here 😄
 
-- job_limit ensures that no more than 5 jobs run simultaneously.
+<div style="text-align: center;">
+    <img src="/images/optimization_progress_1.gif" alt="Optimization progress" width="600"/>
+</div>
 
+This looks great, but there’s an interesting observation: **the optimizer finds a strong design very early on**, and after that the improvements are marginal. In practice, the optimization has already converged, yet we continue spending computational time evaluating new designs.
 
-## How it all fits together
+One might ask whether this behavior is influenced by the **choice of acquisition function**. For example, if the optimizer is leaning heavily toward *expected improvement* rather than *probability of improvement* ([here is their definitions](https://ekamperi.github.io/machine%20learning/2021/06/11/acquisition-functions.html)), it may aggressively exploit early promising regions instead of continuing broader exploration. At this point, I don’t yet know FlowBoost’s internals well enough to make a definitive call, so this remains an open question worth revisiting if the optimization appears to get “stuck.”
 
-- **New design**: The optimizer proposes a design with specific angleOfAttack and speed.
-
-- **Pending case**: The system copies the aachenBomb_template to cases_pending/job_xxxxx and updates the OpenFOAM dictionaries. Metadata is saved in metadata.toml.
-
-- **Simulation runs**: The case executes, producing OpenFOAM results.
-
-- **Completion**: Once finished, the case is moved to cases_completed/ and objectives (like L/D) are recorded in designs.json.
-
-- **Next iteration**: The optimizer reads designs.json to suggest new designs.
-
-This structure ensures modularity, reproducibility, and easy tracking of hundreds of designs in an automated CFD optimization workflow.
-
-### Running FlowBoost on SLURM cluster
-So far, we’ve configured FlowBoost with:
+In cases like this, it makes sense to stop the optimization as soon as a target performance is reached. FlowBoost supports this by allowing you to define a **target objective value** and terminate the iteration automatically once it is exceeded:
 
 ```python
-scheduler = "Local"
+session = Session(
+    name="aerofoilNACA0012Steady",
+    data_dir=data_dir,
+    clone_method="copy",
+    max_evaluations=50,
+    target_value=60,
+    target_objective="L/D"
+)
 ```
+If ```target_objective ```is not specified, FlowBoost defaults to using the first registered objective. This is fine for single-objective problems, but if you are optimizing multiple objectives simultaneously, it’s best practice to always specify which one should trigger early termination.
 
-That’s perfect for laptops or small workstations. But let’s be honest, the moment your cases become even slightly more expensive (3D, turbulence, combustion, mesh refinement…), your CPU will start begging for mercy.
+Now my cool GIF will look like this:
 
-This is where a SLURM-based HPC cluster becomes your best friend.
+<div style="text-align: center;">
+    <img src="/images/optimization_progress_value.gif" alt="Optimization progress" width="600"/>
+</div>
 
-FlowBoost abstracts job execution through its Manager, which means switching to a cluster environment is straightforward.
+You can see that the optimizer automatically stops **once the target value of 60 is reached**, avoiding unnecessary evaluations after convergence.
 
-Instead of:
+## Understanding the Workflow Behind the Scenes
 
-```python
-scheduler = "Local"
-```
+FlowBoost organizes each optimization session in a clear, reproducible structure:
 
-you can use
+- **Template case** – The base OpenFOAM case that every new design is cloned from.
 
-```python
-scheduler = "slurm"
-```
+- **Pending cases** – Designs currently running or queued. FlowBoost automatically updates the parameters in each case.
 
-Then configure the manager:
+- **Completed cases** – Finished simulations with all results stored.
+
+- **Central record** (```designs.json```) – Tracks every design’s parameters and evaluated objectives, letting the optimizer learn and suggest new designs efficiently.
+
+This system ensures that hundreds of designs can be explored without losing track of any simulation, and makes it easy to visualize or analyze results at any time.
+
+## Scaling the HPC Clusters
+For small cases, the local scheduler works fine. But for heavier 3D simulations, you can switch to a cluster:
 
 ```python
 session.job_manager = Manager.create(
     scheduler="slurm",
     wdir=session.data_dir,
-    job_limit=20  # or whatever your allocation allows
+    job_limit=20
 )
 ```
+FlowBoost will submit each design as a separate cluster job, keeping the same workflow intact. Note that FlowBoost tries to find an Allrun script inside the case, which works well for a tutorial. For more custom applications you can specify a custom run script, making the transition seamless.
 
-Now each OpenFOAM case is submitted as a SLURM job instead of running locally.
-
-Note that you can also explicitly specify the name of your run script, which you configured for SLURM:
 
 ```python
-session.job_manager = Manager.create(
-    scheduler="slurm",
-    wdir=session.data_dir,
-    job_limit=20  # or whatever your allocation allows
-)
 session.submission_script_name = "Allrun_SLURM"
 ```
+<br>
+
+# Closing Thoughts
+
+This example intentionally used a simple, fast-running airfoil case to keep the focus on the **design optimization workflow itself**, rather than on CFD setup details. The key takeaway is not the specific result, but how a structured, automated loop, parameterized cases, objective extraction, Bayesian optimization, and early stopping, can make design exploration in OpenFOAM both practical and scalable.
+
+At the moment, FlowBoost is best suited for **parametric optimization** and **does not support topology optimization out of the box**. Extending the workflow to include automated geometry or topology changes remains an interesting and open challenge. If you are aware of robust, open-source tools that integrate well with OpenFOAM for geometry or topology optimization, I would be very happy to hear about them. Contributions in this direction are also very welcome.
+
+Overall, FlowBoost aims to remove much of the friction traditionally associated with CFD-based optimization in OpenFOAM, making it easier to move from ad-hoc trial-and-error studies to reproducible, data-driven design campaigns—using fully open-source tools.
+
+Finally, I want to personally thank **Daniel Virokannas** for the exceptional work he did in developing the original framework. His Master’s thesis laid a solid foundation, and the quality of that work is the reason FlowBoost could be revived, extended, and used productively years later.
+
+You can find my FlowBoost fork, which includes this tutorial, on GitHub [here](https://github.com/blttkgl/flowboost).
+
+Thanks for reading,  
 — Bulut
-
-
-
 
