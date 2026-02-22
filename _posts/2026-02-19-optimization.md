@@ -304,7 +304,7 @@ flowchart LR
 
 # Part 3: Running the Optimization & Interpreting Results
 
-Once your FlowBoost session is set up, running the optimization is straightforward. [This Python script I prepared]((/images/aerofoilNACA0012Steady.py)) will handle everything:
+Once your FlowBoost session is set up, running the optimization is straightforward. [This Python script I prepared](/images/aerofoilNACA0012Steady.py) will handle everything:
 
 ```
 python aerofoilNACA0012Steady.py
