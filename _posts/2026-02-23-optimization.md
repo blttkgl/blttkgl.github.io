@@ -1,6 +1,6 @@
 ---
 title: 'Automating CFD Design Optimization in OpenFOAM with Bayesian Optimization'
-date: 2199-02-19
+date: 2026-02-23
 permalink: /posts/2026/02/optimization/
 tags:
   - OpenFOAM
@@ -14,9 +14,9 @@ Running design optimization in CFD is usually slow, tedious, and expensive. This
 
 What if you could **automate the process, explore hundreds of design variations efficiently, and find optimal designs**, all using open-source tools like OpenFOAM? Then this article is for you 😊
 
-[FlowBoost](https://github.com/499602D2/flowboost) is an open-source framework for automating design optimization in OpenFOAM. It can modify cases, run simulations locally or on a cluster, track results, and suggest new designs, letting you focus on insight rather than manual trial and error. 
+[FlowBoost](https://github.com/499602D2/flowboost) is an open-source framework for automating design optimization in OpenFOAM. It can modify cases, run simulations locally or on a cluster, track results, and suggest new designs, letting you focus on insight rather than manual trial and error.
 
-Originally developed in 2024 by [Daniel Virokannas](https://www.linkedin.com/in/danielvirokannas/) on his Master's thesis which I acted as an advisor, [Bayesian optimization of in-situ adaptive tabulation for marine engine CFD simulations](https://aaltodoc.aalto.fi/server/api/core/bitstreams/d99091dd-25cb-4e66-9233-06cbee0229ac/content), FlowBoost have since been [open-sourced](https://github.com/499602D2/flowboost) and been living on GitHub since then. After I [forked](https://github.com/blttkgl/flowboost) and polished it for my own CFD workflows (introducing new functionality, squashing some critical bugs), it became a useful tool for automated design campaigns, from simple tutorial problems to complex cases.
+Originally developed in 2024 by [Daniel Virokannas](https://www.linkedin.com/in/danielvirokannas/) on his Master's thesis which I acted as an advisor, [Bayesian optimization of in-situ adaptive tabulation for marine engine CFD simulations](https://aaltodoc.aalto.fi/server/api/core/bitstreams/d99091dd-25cb-4e66-9233-06cbee0229ac/content), FlowBoost have since been [open-sourced](https://github.com/499602D2/flowboost) and been living on GitHub since then. After I [forked](https://github.com/blttkgl/flowboost) and polished it for my own CFD workflows (introducing new functionality, squashing some bugs), it became a useful tool for automated design campaigns, from simple tutorial problems to complex cases.
 
 In this article, I’ll show you how to **set up an OpenFOAM case for optimization, define objectives, and run automated campaigns**, all illustrated with a simple, reproducible NACA0012 airfoil example.<br><br>
 
@@ -450,6 +450,6 @@ Finally, I want to personally thank **Daniel Virokannas** for the exceptional wo
 
 You can find my FlowBoost fork, which includes this tutorial, on GitHub [here](https://github.com/blttkgl/flowboost).
 
-Thanks for reading,  
+Thanks for reading,
 — Bulut
 
